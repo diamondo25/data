@@ -723,45 +723,6 @@ var JSONSerializer = Serializer.extend({
     return normalizeModelName(key);
   },
 
-
-  /**
-    @method normalizeAttributes
-    @private
-  */
-  normalizeAttributes(typeClass, hash) {
-    var payloadKey;
-
-    if (this.keyForAttribute) {
-      typeClass.eachAttribute((key) => {
-        payloadKey = this.keyForAttribute(key, 'deserialize');
-        if (key === payloadKey) { return; }
-        if (hash[payloadKey] === undefined) { return; }
-
-        hash[key] = hash[payloadKey];
-        delete hash[payloadKey];
-      });
-    }
-  },
-
-  /**
-    @method normalizeRelationships
-    @private
-  */
-  normalizeRelationships(typeClass, hash) {
-    var payloadKey;
-
-    if (this.keyForRelationship) {
-      typeClass.eachRelationship((key, relationship) => {
-        payloadKey = this.keyForRelationship(key, relationship.kind, 'deserialize');
-        if (key === payloadKey) { return; }
-        if (hash[payloadKey] === undefined) { return; }
-
-        hash[key] = hash[payloadKey];
-        delete hash[payloadKey];
-      });
-    }
-  },
-
   /**
     @method normalizeUsingDeclaredMapping
     @private
